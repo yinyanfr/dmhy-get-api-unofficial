@@ -2,7 +2,7 @@ import { JSDOM } from 'jsdom';
 import { trim } from 'lodash';
 import moment from 'moment';
 import { Converter } from 'opencc-js';
-import { convertToByte } from './utils';
+import { convertToByte, removeHighlight } from './utils';
 import type { EelItem, SearchOptions } from './utils';
 import searchOptions from './options.json';
 
@@ -53,7 +53,7 @@ export function parseDMHYList(html: string): EelItem[] {
           ?.replace('.html', '');
         const category = row.querySelector(`td a[class^="sort-"] font`);
         item.color = category?.getAttribute('color') || undefined;
-        item.category = converter(category?.innerHTML || '');
+        item.category = removeHighlight(converter(category?.innerHTML || ''));
         item.categoryId = category?.parentElement?.getAttribute('href')?.match(/[0-9]+$/)?.[0];
         const time = row.querySelector('td')?.querySelector('span');
         item.time = timeConvert(time?.innerHTML);

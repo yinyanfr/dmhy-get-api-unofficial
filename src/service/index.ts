@@ -13,7 +13,7 @@ interface DMHYSearchQuery {
 export async function scrapeDMHYList(
   queries: DMHYSearchQuery = {},
   options: Record<string, unknown> = {},
-) {
+): Promise<string> {
   return request<string>('https://share.dmhy.org/', {
     method: 'GET',
     headers: genericHeaders,

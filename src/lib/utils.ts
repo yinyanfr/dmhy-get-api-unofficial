@@ -10,6 +10,10 @@ export function convertToByte(value: number, unit: string) {
   return value * (factors[unit] || 1);
 }
 
+export function removeHighlight(title: string): string {
+  return title.replace(/<span class="keyword">([^<]*)<\/span>/g, '$1');
+}
+
 /**
  * EelItem Model
  * @typedef {object} EelItem

@@ -25,7 +25,8 @@ const app = express.Router();
  * @return {object} 404 - Not Found
  */
 app.get('/list', async (req, res) => {
-  const html = await scrapeDMHYList(req.query);
+  const keyword = req?.query?.keyword ? decodeURI(req.query.keyword as string) : undefined;
+  const html = await scrapeDMHYList({ ...req.query, keyword });
   const list = await parseDMHYList(html);
   res.send({ data: list });
 });
